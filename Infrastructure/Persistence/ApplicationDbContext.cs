@@ -14,5 +14,15 @@ namespace Infrastructure.Persistence
         {
             Database.EnsureCreated();
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Word>()
+                .HasOne(w => w.Progress)
+                .WithOne(p => p.Word)
+                .HasForeignKey<Progress>(p => p.Id);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

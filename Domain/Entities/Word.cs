@@ -1,6 +1,4 @@
-﻿using Domain.ValueObjects;
-
-namespace Domain.Entities
+﻿namespace Domain.Entities
 {
     public class Word
     {

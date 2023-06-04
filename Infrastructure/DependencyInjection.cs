@@ -1,4 +1,6 @@
-﻿using Infrastructure.Persistence;
+﻿using Application.Interfaces.Base;
+using Infrastructure.Persistence;
+using Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +18,8 @@ namespace Infrastructure
             {
                 options.UseSqlServer(connectionString);
             });
+
+            services.AddScoped(typeof(IRepository <>), typeof(DbRepository<>));
 
             return services;
         }
