@@ -10,7 +10,7 @@ namespace API
 
             builder.Services.AddInfrastructure(builder.Configuration);
 
-            builder.Services.AddControllers(); 
+            builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
