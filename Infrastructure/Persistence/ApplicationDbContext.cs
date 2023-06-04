@@ -9,6 +9,7 @@ namespace Infrastructure.Persistence
         public DbSet<Word> Words { get; set; }
         public DbSet<Translation> Translations { get; set; }
         public DbSet<WordList> WordLists { get; set; }
+        public DbSet<Progress> Progress { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions<ApplicationDbContext> options) : base(options)
