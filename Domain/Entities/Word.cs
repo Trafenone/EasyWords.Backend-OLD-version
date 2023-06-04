@@ -7,6 +7,8 @@
         public string? Transcription { get; set; }
         public string? Image { get; set; }
         public Progress Progress { get; set; }
-        public IList<Translate> Translations { get; set; } = new List<Translate>();
+        public IList<Translation> Translations { get; set; } = new List<Translation>();
+        public int WordListId { get; set; }
+        public WordList WordList { get; set; }
     }
 }
