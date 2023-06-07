@@ -1,8 +1,6 @@
-﻿using Application.Interfaces.Base;
+﻿using Application.Common.Interfaces.Base;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace API.Controllers
 {
@@ -18,33 +16,33 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Word>> Get()
+        public async Task<IEnumerable<Word>> Get(CancellationToken cancellationToken)
         {
-            return await _wordRepository.GetAllAsync();
+            return await _wordRepository.GetAllAsync(cancellationToken);
         }
 
         [HttpGet("{id}")]
-        public async Task<Word> Get(int id)
+        public async Task<Word> Get(int id, CancellationToken cancellationToken)
         {
-            return await _wordRepository.GetByIdAsync(id);
+            return await _wordRepository.GetByIdAsync(id, cancellationToken);
         }
 
         [HttpPost]
-        public async Task Post([FromBody] Word value)
+        public async Task Post([FromBody] Word value, CancellationToken cancellationToken)
         {
-            await _wordRepository.AddAsync(value);
+            await _wordRepository.AddAsync(value, cancellationToken);
         }
 
         [HttpPut]
-        public async Task Put([FromBody] Word value)
+        public async Task Put([FromBody] Word value, CancellationToken cancellationToken)
         {
-            await _wordRepository.UpdateAsync(value);
+            await _wordRepository.UpdateAsync(value, cancellationToken);
         }
 
         [HttpDelete("{id}")]
-        public async Task Delete(Word value)
+        public async Task Delete(int id, CancellationToken cancellationToken)
         {
-            await _wordRepository.DeleteAsync(value);
+            await _wordRepository.DeleteAsync(id, cancellationToken);
         }
     }
 }

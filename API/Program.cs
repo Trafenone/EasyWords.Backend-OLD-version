@@ -1,3 +1,4 @@
+using Application;
 using Infrastructure;
 
 namespace API
@@ -8,6 +9,7 @@ namespace API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddApplication();
             builder.Services.AddInfrastructure(builder.Configuration);
 
             builder.Services.AddControllers();
@@ -25,7 +27,6 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

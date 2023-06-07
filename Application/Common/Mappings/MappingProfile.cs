@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using AutoMapper;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Common.Mappings
 {
-    public class MappingProfile
+    public class MappingProfile : Profile
     {
         public MappingProfile() =>
             ApplyMappingsFromAssembly(Assembly.GetExecutingAssembly());
