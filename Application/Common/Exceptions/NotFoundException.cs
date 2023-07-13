@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace Application.Common.Exceptions
+﻿namespace Application.Common.Exceptions
 {
     public class NotFoundException : Exception
     {
@@ -10,7 +8,7 @@ namespace Application.Common.Exceptions
         }
 
         public NotFoundException(string name, object key)
-            : base($"Entity \"{name}\" ({key}) was not found.")
+            : base($"Entity {name} ({key}) was not found.")
         {
         }
     }

@@ -25,7 +25,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] UpdateWordListCommand  value)
+        public async Task<IActionResult> Put([FromBody] UpdateWordListCommand value)
         {
             await Mediator.Send(value);
 

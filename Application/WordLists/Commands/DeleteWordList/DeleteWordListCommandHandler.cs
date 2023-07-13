@@ -24,7 +24,7 @@ namespace Application.WordLists.Commands.DeleteWordList
 
             if (entity == null)
                 throw new NotFoundException(nameof(WordList), request.Id);
-            
+
 
             _context.WordLists.Remove(entity);
 

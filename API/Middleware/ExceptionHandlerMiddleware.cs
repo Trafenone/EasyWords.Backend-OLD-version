@@ -1,15 +1,15 @@
 ﻿using Application.Common.Exceptions;
-using System.ComponentModel.DataAnnotations;
+using FluentValidation;
 using System.Net;
 using System.Text.Json;
 
 namespace API.Middleware
 {
-    public class CustomExceptionHandlerMiddleware
+    public class ExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;
 
-        public CustomExceptionHandlerMiddleware(RequestDelegate next)
+        public ExceptionHandlerMiddleware(RequestDelegate next)
         {
             _next = next;
         }
@@ -33,9 +33,9 @@ namespace API.Middleware
 
             switch (exception)
             {
-                case ValidationException validationException:
+                case ValidationException:
                     code = HttpStatusCode.BadRequest;
-                    result = JsonSerializer.Serialize(validationException.ValidationResult);
+                    result = JsonSerializer.Serialize(exception.Message);
                     break;
                 case NotFoundException:
                     code = HttpStatusCode.NotFound;
