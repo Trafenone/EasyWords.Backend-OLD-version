@@ -1,4 +1,7 @@
-﻿using Application.WordLists.Queries.GetAllWordList;
+﻿using Application.WordLists.Commands.CreateWordList;
+using Application.WordLists.Commands.DeleteWordList;
+using Application.WordLists.Commands.UpdateWordList;
+using Application.WordLists.Queries.GetAllWordList;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -14,20 +17,27 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] CreateWordListCommand value)
         {
+            await Mediator.Send(value);
+
+            return Ok();
         }
 
-        // PUT api/<WordListController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] UpdateWordListCommand  value)
         {
+            await Mediator.Send(value);
+
+            return Ok();
         }
 
-        // DELETE api/<WordListController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            await Mediator.Send(new DeleteWordListCommand { Id = id });
+
+            return Ok();
         }
     }
 }

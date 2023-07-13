@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Application.WordLists.Commands.DeleteWordList
 {
     public class DeleteWordListCommandHandler
-        : IRequestHandler<DeleteWordListCommand>
+        : IRequestHandler<DeleteWordListCommand, Unit>
     {
         private readonly IApplicationDbContext _context;
 
@@ -16,20 +16,21 @@ namespace Application.WordLists.Commands.DeleteWordList
             _context = context;
         }
 
-        public async Task Handle(DeleteWordListCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteWordListCommand request, CancellationToken cancellationToken)
         {
             var entity = await _context.WordLists
                 .Where(l => l.Id == request.Id)
                 .SingleOrDefaultAsync(cancellationToken);
 
             if (entity == null)
-            {
                 throw new NotFoundException(nameof(WordList), request.Id);
-            }
+            
 
             _context.WordLists.Remove(entity);
 
             await _context.SaveChangesAsync(cancellationToken);
+
+            return Unit.Value;
         }
     }
 }

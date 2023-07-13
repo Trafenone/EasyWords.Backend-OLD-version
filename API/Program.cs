@@ -1,3 +1,4 @@
+using API.Middleware;
 using Application;
 using Infrastructure;
 
@@ -23,6 +24,8 @@ namespace API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCustomExceptionHandler();
 
             app.UseHttpsRedirection();
 

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Application.WordLists.Commands.UpdateWordList
 {
     public class UpdateWordListCommandHandler
-        : IRequestHandler<UpdateWordListCommand>
+        : IRequestHandler<UpdateWordListCommand, Unit>
     {
         private readonly IApplicationDbContext _context;
 
@@ -16,7 +16,7 @@ namespace Application.WordLists.Commands.UpdateWordList
             _context = context;
         }
 
-        public async Task Handle(UpdateWordListCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateWordListCommand request, CancellationToken cancellationToken)
         {
             var entity = await _context.WordLists
                 .FirstOrDefaultAsync(l => l.Id == request.Id, cancellationToken);
@@ -30,6 +30,8 @@ namespace Application.WordLists.Commands.UpdateWordList
             entity.IsActive = request.IsActive;
 
             await _context.SaveChangesAsync(cancellationToken);
+
+            return Unit.Value;
         }
     }
 }

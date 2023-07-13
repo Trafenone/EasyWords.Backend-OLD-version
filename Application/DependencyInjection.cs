@@ -1,4 +1,6 @@
-﻿using Application.Common.Mappings;
+﻿using Application.Common.Behaviors;
+using Application.Common.Mappings;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -17,6 +19,9 @@ namespace Application
             {
                 config.AddProfile(new MappingProfile());
             });
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
 
             return services;
         }

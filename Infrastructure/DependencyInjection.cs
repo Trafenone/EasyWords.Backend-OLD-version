@@ -18,7 +18,6 @@ namespace Infrastructure
                 options.UseSqlServer(connectionString);
             });
 
-            //services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
             services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 
             return services;

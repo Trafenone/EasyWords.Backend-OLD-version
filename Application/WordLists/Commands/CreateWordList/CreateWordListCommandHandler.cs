@@ -4,7 +4,7 @@ using MediatR;
 namespace Application.WordLists.Commands.CreateWordList
 {
     public class CreateWordListCommandHandler :
-        IRequestHandler<CreateWordListCommand>
+        IRequestHandler<CreateWordListCommand, Unit>
     {
         private readonly IApplicationDbContext _context;
 
@@ -13,7 +13,7 @@ namespace Application.WordLists.Commands.CreateWordList
             _context = context;
         }
 
-        public async Task Handle(CreateWordListCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateWordListCommand request, CancellationToken cancellationToken)
         {
             Domain.Entities.WordList list = new()
             {
@@ -22,6 +22,8 @@ namespace Application.WordLists.Commands.CreateWordList
 
             await _context.WordLists.AddAsync(list, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
+
+            return Unit.Value;
         }
     }
 }
