@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces;
+using Domain.Entities;
 using MediatR;
 
 namespace Application.WordLists.Commands.CreateWordList
@@ -15,7 +16,7 @@ namespace Application.WordLists.Commands.CreateWordList
 
         public async Task<Unit> Handle(CreateWordListCommand request, CancellationToken cancellationToken)
         {
-            Domain.Entities.WordList list = new()
+            WordList list = new()
             {
                 Title = request.Title,
             };

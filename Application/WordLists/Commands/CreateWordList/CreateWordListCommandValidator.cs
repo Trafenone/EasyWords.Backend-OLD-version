@@ -7,7 +7,7 @@ namespace Application.WordLists.Commands.CreateWordList
         public CreateWordListCommandValidator()
         {
             RuleFor(createCommand =>
-                createCommand.Title).NotEmpty().MinimumLength(5);
+                createCommand.Title).NotEmpty().MaximumLength(100);
         }
     }
 }

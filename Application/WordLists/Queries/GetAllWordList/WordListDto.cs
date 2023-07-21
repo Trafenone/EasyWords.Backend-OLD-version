@@ -6,7 +6,7 @@ namespace Application.WordLists.Queries.GetAllWordList
 {
     public class WordListDto : IMapFrom<WordList>
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public bool IsActive { get; set; }
 

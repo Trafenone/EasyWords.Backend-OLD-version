@@ -1,4 +1,7 @@
-﻿using Application.Common.Interfaces.Base;
+﻿using Application.Words.Commands.CreateWord;
+using Application.Words.Commands.DeleteWord;
+using Application.Words.Commands.UpdateWord;
+using Application.Words.Queries.GetAllWordsById;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,43 +9,35 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WordController : ControllerBase
+    public class WordController : ApiBaseController
     {
-        private readonly IRepository<Word> _wordRepository;
-
-        public WordController(IRepository<Word> wordRepository)
-        {
-            _wordRepository = wordRepository;
-        }
-
-        [HttpGet]
-        public async Task<IEnumerable<Word>> Get(CancellationToken cancellationToken)
-        {
-            return await _wordRepository.GetAllAsync(cancellationToken);
-        }
 
         [HttpGet("{id}")]
-        public async Task<Word> Get(int id, CancellationToken cancellationToken)
+        public async Task<ActionResult<WordVm>> Get(Guid id)
         {
-            return await _wordRepository.GetByIdAsync(id, cancellationToken);
+            return Ok(await Mediator.Send(new GetWordsQuery { Id = id }));
         }
 
         [HttpPost]
-        public async Task Post([FromBody] Word value, CancellationToken cancellationToken)
+        public async Task<IActionResult> Post([FromBody] CreateWordCommand value)
         {
-            await _wordRepository.AddAsync(value, cancellationToken);
+            await Mediator.Send(value);
+
+            return Ok();
         }
 
         [HttpPut]
-        public async Task Put([FromBody] Word value, CancellationToken cancellationToken)
+        public async Task<IActionResult> Put([FromBody] UpdateWordCommand value)
         {
-            await _wordRepository.UpdateAsync(value, cancellationToken);
+            await Mediator.Send(value);
+
+            return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task Delete(int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            await _wordRepository.DeleteAsync(id, cancellationToken);
+            return Ok(await Mediator.Send(new DeleteWordCommand { Id = id }));
         }
     }
 }
